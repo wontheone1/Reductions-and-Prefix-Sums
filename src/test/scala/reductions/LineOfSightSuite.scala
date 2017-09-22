@@ -44,5 +44,12 @@ class LineOfSightSuite extends FunSuite {
     assert(output.toList == List(0f, 1f, 4f, 4f))
   }
 
+  test("parLineOfSight should correctly handle a 4 element array when the starting angle is zero") {
+    val input = Array[Float](0f, 1f, 8f, 9f)
+    val output = new Array[Float](4)
+    parLineOfSight(input, output, 1)
+    assert(output.toList == List(0f, 1f, 4f, 4f))
+  }
+
 }
 

@@ -113,6 +113,6 @@ object LineOfSight {
   /** Compute the line-of-sight in parallel. */
   def parLineOfSight(input: Array[Float], output: Array[Float],
     threshold: Int): Unit = {
-    ???
+    downsweep(input, output, 0, upsweep(input, 0, input.length, threshold))
   }
 }
