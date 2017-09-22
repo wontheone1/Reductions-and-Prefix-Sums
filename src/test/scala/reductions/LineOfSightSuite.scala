@@ -37,5 +37,12 @@ class LineOfSightSuite extends FunSuite {
     assert(output.toList == List(0f, 1f, 4f, 4f))
   }
 
+  test("downsweep should correctly handle a 4 element array when the starting angle is zero") {
+    val input = Array[Float](0f, 1f, 8f, 9f)
+    val output = new Array[Float](4)
+    downsweep(input, output, 0, upsweep(input, 0, 4, 1))
+    assert(output.toList == List(0f, 1f, 4f, 4f))
+  }
+
 }
 

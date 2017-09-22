@@ -87,8 +87,17 @@ object LineOfSight {
    *  given the `startingAngle`.
    */
   def downsweepSequential(input: Array[Float], output: Array[Float],
-    startingAngle: Float, from: Int, until: Int): Unit = {
-    ???
+                          startingAngle: Float, begin: Int, end: Int): Unit = {
+    if (begin == 0) {
+      output(0) = 0
+    }
+    else {
+      output(begin) = max(input(begin) / begin, startingAngle) // there might have been terrain with higher viewing angle before beginning of this part
+    }
+
+    for (i <- begin + 1 until end) {
+      output(i) = max(input(i) / i, output(i - 1))
+    }
   }
 
   /** Pushes the maximum angle in the prefix of the array to each leaf of the
@@ -96,8 +105,9 @@ object LineOfSight {
    *  the `output` angles.
    */
   def downsweep(input: Array[Float], output: Array[Float], startingAngle: Float,
-    tree: Tree): Unit = {
-    ???
+    tree: Tree): Unit = tree match {
+    case Leaf(begin, end, maxPrevious) => downsweepSequential(input, output, startingAngle, begin, end)
+    case Node(left, right) => parallel(downsweep(input, output, startingAngle, left), downsweep(input, output, left.maxPrevious, right))
   }
 
   /** Compute the line-of-sight in parallel. */
