@@ -19,8 +19,15 @@ class LineOfSightSuite extends FunSuite {
 
 
   test("upsweepSequential should correctly handle the chunk 1 until 4 of an array of 4 elements") {
-    val res = upsweepSequential(Array[Float](0f, 1f, 8f, 9f), 1, 4)
+    val res = upsweepSequential(Array[Float](0f, 1f, 8f, 9f), 0, 4)
     assert(res == 4f)
+  }
+
+  test("upsweep should correctly handle the chunk 1 until 4 of an array of 4 elements") {
+    val res = upsweep(Array[Float](0f, 1f, 8f, 9f), 0, 4, 1)
+    assert(
+      res == Node(Node(Leaf(0, 1, 0f), Leaf(1, 2, 1f)), Node(Leaf(2, 3, 4f), Leaf(3, 4, 3f)))
+    )
   }
 
 
