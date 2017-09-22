@@ -34,7 +34,13 @@ object LineOfSight {
   def max(a: Float, b: Float): Float = if (a > b) a else b
 
   def lineOfSight(input: Array[Float], output: Array[Float]): Unit = {
-    ???
+
+    val viewAngleIndices: Array[(Float, Int)] = input.zipWithIndex
+      .tail
+      .scan((0.0f, 0))((viewAngleIndexPair:(Float, Int), heightIndexPair:(Float, Int)) =>
+        (max(viewAngleIndexPair._1, heightIndexPair._1 / heightIndexPair._2), heightIndexPair._2))
+
+    viewAngleIndices.foreach( viewAngleIndexPair => output(viewAngleIndexPair._2) = viewAngleIndexPair._1 )
   }
 
   sealed abstract class Tree {
